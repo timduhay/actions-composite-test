@@ -1,0 +1,23 @@
+name: 'Composite action'
+desctipion: 'Test composite action'
+inputs:
+  some-input:
+    description: 'Input text'
+    required: true
+    default: 'input'
+# outputs:
+runs:
+  using: 'composite'
+  steps:
+    - name: Display input
+      run: echo "Hello $SOME_INPUT"
+      shell: bash
+      env:
+        SOME_INPUT: ${{ inputs.some-input }}
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: .nvmrc
